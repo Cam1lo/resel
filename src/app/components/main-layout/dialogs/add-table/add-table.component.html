@@ -20,27 +20,75 @@
 
             <mat-form-field class="example-chip-list" appearance="outline">
               <mat-label>Columns Name</mat-label>
-              <mat-chip-list #chipList aria-label="Fruit selection">
-                <mat-chip *ngFor="let column of columns" [selectable]="true"
-                          [removable]="true" (removed)="remove(column)">
-                  {{column}}
+              <mat-chip-list #chipList
+                             aria-label="Columns Selection"
+                             [formControlName]="'columns'">
+                <mat-chip *ngFor="let column of this.addTableService.form.get('columns')?.value" [selectable]="true"
+                          [removable]="true" (removed)="this.addTableService.remove(column)">
+                  {{column.name}}
                   <img src="assets/images/cancel_black_24dp.svg" matChipRemove>
                 </mat-chip>
                 <input placeholder="New column..."
                        [matChipInputFor]="chipList"
                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                        [matChipInputAddOnBlur]="false"
-                       (matChipInputTokenEnd)="add($event)">
+                       (matChipInputTokenEnd)="this.addTableService.add($event)"
+                       autocomplete="off"
+                       required>
               </mat-chip-list>
             </mat-form-field>
 
             <div>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button matStepperNext (click)="this.addTableService.setColumns()">Next</button>
             </div>
           </form>
         </mat-step>
         <mat-step label="Columns Configuration">
           <form [formGroup]="addTableService.form">
+            <div class="advanced-column-setting"
+                 *ngFor="let column of this.addTableService.form.get('columns')?.value, let i = index">
+
+              <mat-form-field *ngIf="this.addTableService.form.get('columns')?.value[i]"
+                              appearance="outline">
+                <mat-label><strong>{{column.name}}</strong> Behavior</mat-label>
+                <mat-select [(value)]="this.addTableService.form.get('columns')?.value[i].columnOperation.operation">
+                  <mat-option *ngFor="let operation of keys()" [value]="operation">
+                    {{operation}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <ng-container *ngIf="this.addTableService.form.get('columns')?.value[i].columnOperation.operation">
+                <mat-form-field>
+                  <mat-label>Columns
+                             to {{ this.addTableService.form.get('columns')?.value[i].columnOperation.operation }}</mat-label>
+                  <mat-select multiple
+                              [(value)]="this.addTableService.form.get('columns')?.value[i].columnOperation.columns">
+                    <mat-select-trigger>
+                      <mat-chip-list>
+
+                        <mat-chip *ngFor="let behaviorColumn of this.addTableService.form.get('columns')?.value[i].columnOperation.columns"
+                                  [removable]="true"
+                                  (removed)="this.addTableService.behaviorColumnRemove(behaviorColumn, i)">
+                          {{ behaviorColumn['name'] }}
+                          <img src="assets/images/cancel_black_24dp.svg" matChipRemove>
+                        </mat-chip>
+
+                      </mat-chip-list>
+                    </mat-select-trigger>
+
+                    <ng-container *ngFor="let behaviorColumn of this.addTableService.form.get('columns')?.value">
+                      <mat-option *ngIf="behaviorColumn !== this.addTableService.form.get('columns')?.value[i]"
+                                  [value]="behaviorColumn"
+                                  (click)="this.addTableService.optionSort()">
+                        {{behaviorColumn.name}}
+                      </mat-option>
+                    </ng-container>
+
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </div>
             <div class="stepper-controls">
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button (click)="innerOnSubmit()">Create</button>

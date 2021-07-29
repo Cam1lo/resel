@@ -1,9 +1,11 @@
 import { COMMA, ENTER }      from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
+import { FormArray }         from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef }      from '@angular/material/dialog';
 import { TableService }      from '../../../../core/api/table.service';
 import { AddTableService }   from './add-table.service';
+import { OperationEnum }     from '../../../../core/enums/operation-enum';
 
 @Component({
   selector   : 'app-add-table',
@@ -14,7 +16,6 @@ import { AddTableService }   from './add-table.service';
 export class AddTableComponent implements OnInit {
   isSubmitting                = false;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  columns: string[]           = [];
   selectable: any;
 
   constructor(public addTableService: AddTableService,
@@ -26,25 +27,10 @@ export class AddTableComponent implements OnInit {
   }
 
   innerOnSubmit(): void {
+    console.log(this.addTableService.form.get('columns')?.value);
   }
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.columns.push(value);
-    }
-
-    // Clear the input value
-    event.input.value = '';
-  }
-
-  remove(column: any): void {
-    const index = this.columns.indexOf(column);
-
-    if (index >= 0) {
-      this.columns.splice(index, 1);
-    }
+  keys(): Array<string> {
+    return Object.keys(OperationEnum);
   }
 }
