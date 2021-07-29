@@ -1,0 +1,34 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <div class="sidenav-container">
+      <div>
+        <div class="brand-container">
+          <img src="assets/images/icon.png" alt="resel icon">
+          <a [routerLink]="'/'"><span>RESEL</span></a>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+          <div *ngFor="let table of tables"
+               class="table">
+            <a [routerLink]="['/home', table.id]"
+               routerLinkActive
+               #home="routerLinkActive">
+
+              <div *ngIf="!home.isActive" class="statusBar"></div>
+
+              <span>
+              {{ table.name }}
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="new-table-button">
+        <button mat-button (click)="showAddDialog()">ADD NEW TABLE</button>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

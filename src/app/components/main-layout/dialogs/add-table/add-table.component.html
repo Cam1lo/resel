@@ -1,0 +1,53 @@
+<div class="main-container">
+  <mat-label>CREATE NEW TABLE</mat-label>
+  <form [formGroup]="addTableService.form">
+    <div class="form-container">
+
+      <mat-horizontal-stepper [linear]="true">
+        <mat-step label="Table Configuration">
+          <form [formGroup]="addTableService.form">
+            <mat-form-field appearance="outline" color="white">
+              <mat-label translate>Name</mat-label>
+
+              <input matInput
+                     type="text"
+                     (keyup.enter)="innerOnSubmit()"
+                     [formControlName]="'name'"
+                     required
+                     autocomplete="off">
+
+            </mat-form-field>
+
+            <mat-form-field class="example-chip-list" appearance="outline">
+              <mat-label>Columns Name</mat-label>
+              <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip *ngFor="let column of columns" [selectable]="true"
+                          [removable]="true" (removed)="remove(column)">
+                  {{column}}
+                  <img src="assets/images/cancel_black_24dp.svg" matChipRemove>
+                </mat-chip>
+                <input placeholder="New column..."
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="false"
+                       (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step label="Columns Configuration">
+          <form [formGroup]="addTableService.form">
+            <div class="stepper-controls">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="innerOnSubmit()">Create</button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </form>
+</div>

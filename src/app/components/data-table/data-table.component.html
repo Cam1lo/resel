@@ -1,0 +1,34 @@
+<div class="main">
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef>{{ column }}</mat-header-cell>
+        <mat-cell *matCellDef="let object">
+          <input type="text" [value]="object[column]" (change)="saveTable()" spellcheck="false">
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class="controls">
+    <button mat-button>
+      <img class="download-icon" src="assets/images/download.png" alt="Download">
+    </button>
+
+    <button mat-button>
+      <img src="assets/images/deleted.svg" alt="Deleted">
+    </button>
+
+    <button mat-button (click)="showAddMultipleDialog()">
+      <img src="assets/images/add-multiple.png" alt="Add Data">
+    </button>
+
+    <button mat-button (click)="addRow()">
+      <img src="assets/images/add-old.svg" alt="Add Data">
+    </button>
+  </div>
+</div>
+

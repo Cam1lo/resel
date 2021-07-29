@@ -1,0 +1,102 @@
+@import "./src/app/shared/variables";
+
+:host {
+  height : 100%;
+}
+
+mat-sidenav-container {
+  background-color : $foreground_black !important;
+  height           : 100%;
+}
+
+mat-sidenav {
+  background-color : $background_black !important;
+  border           : none;
+  box-shadow       : 0 0 20px rgba(0, 0, 0, .4);
+  width            : 20rem;
+
+  .sidenav-container {
+    display        : flex;
+    flex-direction : column;
+    height         : 100%;
+
+    .brand-container {
+      align-items : center;
+      display     : flex;
+      padding     : 1rem 2rem;
+
+      a {
+        text-decoration: none;
+      }
+
+      img {
+        width : 2.5rem;
+      }
+
+      span {
+        color       : white;
+        font-family : "Roboto", sans-serif;
+        font-size   : 1.2rem;
+        margin-left : 1rem;
+      }
+    }
+
+    mat-divider {
+      margin : auto;
+      width  : 90%;
+    }
+
+    .table {
+      align-items : center;
+      cursor      : pointer;
+      display     : flex;
+      height      : 4rem;
+
+      .statusBar {
+        background-color : $accent;
+        height           : 100%;
+        transition       : .15s;
+        width            : 0;
+      }
+
+      a {
+        align-items     : center;
+        color           : $disabled;
+        display         : flex;
+        font-size       : 1.05rem;
+        height          : 100%;
+        text-decoration : none;
+        width           : 100%;
+
+        span {
+          padding-left : 1rem;
+        }
+      }
+
+      .active-link {
+        background-color : $background_black;
+      }
+    }
+
+    a:not(.active-link):hover .statusBar {
+      width : .5rem;
+    }
+
+    .new-table-button {
+      align-items     : center;
+      bottom          : 0;
+      display         : flex;
+      height          : 5rem;
+      justify-content : center;
+      position        : absolute;
+      width           : 100%;
+
+      button {
+        background-color : $accent;
+        color            : $background_black;
+      }
+    }
+  }
+}
+
+

@@ -1,0 +1,83 @@
+@import "src/app/shared/variables";
+
+.main-container {
+  align-items    : center;
+  display        : flex;
+  flex-direction : column;
+  width          : 30rem;
+
+  .form-container {
+    margin-top : 2rem;
+    display    : flex;
+  }
+
+  form {
+    align-items     : center;
+    display         : flex;
+    flex-direction  : column;
+    justify-content : center;
+
+    button {
+      background-color : $accent;
+      color            : $background_black;
+      width            : 10rem;
+    }
+  }
+}
+
+.stepper-controls {
+  display         : flex;
+  flex-direction  : row;
+  justify-content : space-around;
+  margin          : 1rem;
+  width           : 100%;
+}
+
+
+input {
+  background-color : $foreground_black;
+}
+
+//input outline color
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color : #929292 !important;
+}
+
+//mat-input marker color
+.mat-form-field-required-marker {
+  color : #929292 !important;
+}
+
+//mat-input error outline color
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  color : #ee4239 !important;
+}
+
+//mat-input caret color
+::ng-deep .mat-input-element {
+  caret-color : white;
+}
+
+//mat-input error caret color
+//::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+//  caret-color: red !important;
+//}
+
+::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
+  color : #929292 !important;
+}
+
+//mat-label normal state style
+::ng-deep .mat-form-field-label {
+  color : #929292 !important;
+}
+
+//mat-label focused style
+::ng-deep .mat-form-field.mat-focused.mat-form-field-label {
+  color : #929292 !important;
+}
+
+//mat-label error style
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color : #ee4239 !important;
+}
