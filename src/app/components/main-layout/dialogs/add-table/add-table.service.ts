@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent }                  from '@angular/material/chips';
-import { OperationEnum }                      from '../../../../core/enums/operation-enum';
 import { Column }                             from '../../../../core/models/Table';
 
 @Injectable()
@@ -53,7 +52,6 @@ export class AddTableService {
 
   optionSort(): void {
     console.log('asd');
-
     //  TODO: Order columns in selection order
   }
 

@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute }     from '@angular/router';
 import { TableService }       from '../../core/api/table.service';
 import { MatTableService }    from '../../core/mat-table.service';
-import { Table }              from '../../core/models/Table';
+import { Row, Table }         from '../../core/models/Table';
 
 @Component({
   selector   : 'app-data-table',
@@ -14,26 +14,39 @@ export class DataTableComponent implements OnInit {
   table: Table;
   displayedColumns: string[];
   dataSource: MatTableDataSource<any>;
-  tableInnerHtml: string;
   isHold: boolean;
+  matTable;
 
   constructor(private activatedRoute: ActivatedRoute,
               private tableService: TableService,
               private matTableService: MatTableService) {
 
-    this.table     = this.activatedRoute.snapshot.data.table;
-    const matTable = this.matTableService.initializeMatTable(this.table);
+    this.table    = this.activatedRoute.snapshot.data.table;
+    this.matTable = this.matTableService.initializeMatTable(this.table);
 
-    this.displayedColumns = matTable.displayedColumns;
-    this.dataSource       = matTable.dataSource;
-    this.tableInnerHtml   = this.matTableService.createMatTableTemplate(this.displayedColumns);
+    this.displayedColumns = this.matTable.displayedColumns;
+    this.dataSource       = this.matTable.dataSource;
   }
 
   ngOnInit(): void {
   }
 
   addRow(): void {
-    console.log('add Row');
+    const newRow: Row = {
+      data: []
+    };
+    this.displayedColumns.forEach(() => {
+      newRow.data.push('');
+    });
+
+    if (newRow) {
+      this.table.tableData.rows.push(newRow);
+    }
+
+    this.matTable   = this.matTableService.initializeMatTable(this.table);
+    this.dataSource = this.matTable.dataSource;
+
+    console.log(this.table);
   }
 
   showAddMultipleDialog(): void {
@@ -41,6 +54,6 @@ export class DataTableComponent implements OnInit {
   }
 
   saveTable(): void {
-    console.log('save');
+    this.tableService.updateDataTable(this.table.id, this.dataSource);
   }
 }

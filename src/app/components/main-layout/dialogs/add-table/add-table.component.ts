@@ -1,7 +1,5 @@
 import { COMMA, ENTER }      from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormArray }         from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef }      from '@angular/material/dialog';
 import { TableService }      from '../../../../core/api/table.service';
 import { AddTableService }   from './add-table.service';
@@ -27,7 +25,8 @@ export class AddTableComponent implements OnInit {
   }
 
   innerOnSubmit(): void {
-    console.log(this.addTableService.form.get('columns')?.value);
+    this.tableService.createTable(this.addTableService.form.value);
+    this.matDialogRef.close();
   }
 
   keys(): Array<string> {

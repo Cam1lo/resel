@@ -19,10 +19,6 @@ export class MainLayoutComponent implements OnInit {
 
   showAddDialog(): void {
     const dialogRef: MatDialogRef<AddTableComponent> = this.dialog.open(AddTableComponent);
-
-    dialogRef.afterClosed().subscribe((wasSuccessfullyClosed: boolean) => {
-      console.log(wasSuccessfullyClosed);
-    });
   }
 
   ngOnInit(): void {

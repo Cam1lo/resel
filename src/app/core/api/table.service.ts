@@ -1,6 +1,6 @@
 import { Injectable }         from '@angular/core';
 import { Observable, of }     from 'rxjs';
-import { Column, Row, Table } from '../models/Table';
+import { Row, Table } from '../models/Table';
 import { tables }             from './data/tables';
 
 @Injectable({
@@ -19,37 +19,30 @@ export class TableService {
     return of(foundTable);
   }
 
-  createTable(tableName: string, columns: any): void {
-    const tableColumns: Column[] = columns.map((columnData: any) => {
-      if (columnData.length > 0) {
-        return {
-          name           : columnData[0],
-          columnOperation: null
-        };
-      }
-      else if (columnData.length > 1) {
-        return {
-          name           : columnData[0],
-          columnOperation: {
-            columns  : columnData[1][0],
-            operation: columnData[1][1]
-          }
-        };
-      }
-      else {
-        return null;
-      }
-    });
-
+  createTable(table: { name: string, columns: [] }): void {
     tables.push({
       id       : tables.length,
-      name     : tableName,
+      name     : table.name,
       tableData: {
-        columns: tableColumns,
+        columns: table.columns,
         rows   : []
       }
     });
+  }
 
-    console.log(tables);
+  updateDataTable(tableId: any, dataTable: any): void {
+    const rows: Row[] = [];
+
+    dataTable.forEach((data: any) => {
+      rows.push({
+        data: Object.values(data)
+      });
+    });
+
+    this.getTableById(tableId).subscribe((table) => {
+      if (table) {
+        table.tableData.rows = rows;
+      }
+    });
   }
 }

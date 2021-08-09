@@ -1,4 +1,4 @@
 export enum OperationEnum {
-  add = '+',
-  sub = '-'
+  sumar = '+',
+  restar = '-'
 }

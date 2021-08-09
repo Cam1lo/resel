@@ -4,7 +4,7 @@
       <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
         <mat-header-cell *matHeaderCellDef>{{ column }}</mat-header-cell>
         <mat-cell *matCellDef="let object">
-          <input type="text" [value]="object[column]" (change)="saveTable()" spellcheck="false">
+          <input type="text" [(ngModel)]="object[column]" (change)="saveTable()" spellcheck="false">
         </mat-cell>
       </ng-container>
 

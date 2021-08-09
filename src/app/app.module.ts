@@ -1,6 +1,6 @@
-import { NgModule }            from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule }       from '@angular/platform-browser';
+import { NgModule }                         from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule }                    from '@angular/platform-browser';
 
 import { AppRoutingModule }        from './app-routing.module';
 import { AppComponent }            from './app.component';
@@ -24,7 +24,8 @@ import { AddTableComponent } from './components/main-layout/dialogs/add-table/ad
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers   : [],
   bootstrap   : [AppComponent]

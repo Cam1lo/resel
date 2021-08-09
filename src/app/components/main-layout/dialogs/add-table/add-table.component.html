@@ -1,13 +1,13 @@
 <div class="main-container">
-  <mat-label>CREATE NEW TABLE</mat-label>
+  <mat-label>CREAR NUEVA TABLA</mat-label>
   <form [formGroup]="addTableService.form">
     <div class="form-container">
 
       <mat-horizontal-stepper [linear]="true">
-        <mat-step label="Table Configuration">
+        <mat-step label="Configuración General">
           <form [formGroup]="addTableService.form">
             <mat-form-field appearance="outline" color="white">
-              <mat-label translate>Name</mat-label>
+              <mat-label translate>Nombre</mat-label>
 
               <input matInput
                      type="text"
@@ -19,7 +19,7 @@
             </mat-form-field>
 
             <mat-form-field class="example-chip-list" appearance="outline">
-              <mat-label>Columns Name</mat-label>
+              <mat-label>Nombre de las columnas</mat-label>
               <mat-chip-list #chipList
                              aria-label="Columns Selection"
                              [formControlName]="'columns'">
@@ -28,7 +28,7 @@
                   {{column.name}}
                   <img src="assets/images/cancel_black_24dp.svg" matChipRemove>
                 </mat-chip>
-                <input placeholder="New column..."
+                <input placeholder="Nueva columna..."
                        [matChipInputFor]="chipList"
                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                        [matChipInputAddOnBlur]="false"
@@ -39,11 +39,11 @@
             </mat-form-field>
 
             <div>
-              <button mat-button matStepperNext (click)="this.addTableService.setColumns()">Next</button>
+              <button mat-button matStepperNext (click)="this.addTableService.setColumns()">Siguiente</button>
             </div>
           </form>
         </mat-step>
-        <mat-step label="Columns Configuration">
+        <mat-step label="Configurar Columnas">
           <form [formGroup]="addTableService.form">
             <div class="advanced-column-setting"
                  *ngFor="let column of this.addTableService.form.get('columns')?.value, let i = index">
@@ -60,8 +60,7 @@
 
               <ng-container *ngIf="this.addTableService.form.get('columns')?.value[i].columnOperation.operation">
                 <mat-form-field>
-                  <mat-label>Columns
-                             to {{ this.addTableService.form.get('columns')?.value[i].columnOperation.operation }}</mat-label>
+                  <mat-label>{{ this.addTableService.form.get('columns')?.value[i].columnOperation.operation }} columnas</mat-label>
                   <mat-select multiple
                               [(value)]="this.addTableService.form.get('columns')?.value[i].columnOperation.columns">
                     <mat-select-trigger>
@@ -90,8 +89,8 @@
               </ng-container>
             </div>
             <div class="stepper-controls">
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="innerOnSubmit()">Create</button>
+              <button mat-button matStepperPrevious>Atras</button>
+              <button mat-button (click)="innerOnSubmit()">Crear</button>
             </div>
           </form>
         </mat-step>
