@@ -9,6 +9,7 @@ import { AddTableComponent }       from './dialogs/add-table/add-table.component
   templateUrl: './main-layout.component.html',
   styleUrls  : ['./main-layout.component.scss']
 })
+
 export class MainLayoutComponent implements OnInit {
   tables: Table[];
 
